@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anahata Yoga Studio | Encuentra tu Equilibrio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Paleta de colores Holística y Premium */
+        :root {
+            --sage-green: #4A5D4E;
+            --light-sage: #F4F6F4;
+            --gold: #D4AF37;
+            --dark-slate: #1E2522;
+        }
+        body {
+            background-color: var(--light-sage);
+            font-family: 'Playfair Display', 'Segoe UI', serif;
+        }
+        .view { display: none; }
+        .view.active { display: block; }
+        
+        /* Animaciones sutiles */
+        .fade-in { animation: fadeIn 0.8s ease-out; }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Control del Carrusel */
+        #carousel-track { transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1); }
+    </style>
+</head>
+<body class="text-slate-800">
+
+    <!-- MENSAJE DE BIENVENIDA SUPERIOR (MOTIVADOR DE IMPACTO) -->
+    <div class="bg-[#4A5D4E] text-[#F4F6F4] text-center py-2 px-4 text-xs md:text-sm font-light tracking-widest uppercase">
+        "El yoga no altera nuestra forma de ver las cosas, transforma a la persona que ve." ✨ <strong>10% OFF en tu primer mes</strong>
+    </div>
+
+    <!-- NAVBAR PREMIUM -->
+    <header class="bg-white/90 backdrop-blur-md sticky top-0 z-50 shadow-sm border-b border-gray-100">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex flex-col md:flex-row items-center justify-between gap-4">
+            <div class="flex items-center gap-3 cursor-pointer" onclick="showView('home')">
+                <div class="bg-[#4A5D4E] text-white p-2.5 rounded-full shadow-inner flex items-center justify-center">
+                    <i class="fa-solid fa-om text-xl text-[#D4AF37]"></i>
+                </div>
+                <div>
+                    <h1 class="text-2xl font-bold tracking-tight text-[#4A5D4E]">Anahata <span class="text-[#D4AF37] font-light">Yoga</span></h1>
+                    <p class="text-[10px] text-gray-400 tracking-widest uppercase">Studio Holístico</p>
+                </div>
+            </div>
+
+            <nav class="flex flex-wrap items-center justify-center gap-6 md:gap-8 text-sm font-medium tracking-wide">
+                <span class="hover:text-[#D4AF37] cursor-pointer transition" onclick="showView('home')">Inicio</span>
+                <span class="hover:text-[#D4AF37] cursor-pointer transition" onclick="showView('classes')">Nuestras Clases</span>
+                <span class="hover:text-[#D4AF37] cursor-pointer transition" onclick="showView('about')">Nosotros</span>
+                <span class="hover:text-[#D4AF37] cursor-pointer transition" onclick="showView('contact')">Contacto</span>
+                
+                <div id="auth-section" class="flex items-center gap-4 border-l pl-6 border-gray-200">
+                    <button id="nav-login-btn" onclick="showView('login')" class="bg-[#4A5D4E] text-white px-5 py-2 rounded-full text-xs font-semibold hover:bg-[#3d4d41] transition shadow-md">Ingresar</button>
+                    <div id="user-profile" class="hidden flex items-center gap-3">
+                        <span id="user-tag" class="text-xs bg-emerald-50 text-[#4A5D4E] px-3 py-1 rounded-full font-bold border border-emerald-200"></span>
+                        <button id="admin-badge" onclick="showView('admin')" class="hidden bg-amber-600 text-white text-[10px] px-2 py-0.5 rounded font-black tracking-tighter">ADMIN</button>
+                        <button onclick="logout()" class="text-red-400 hover:text-red-600 text-sm"><i class="fa-solid fa-power-off"></i></button>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- BOTÓN DE WHATSAPP FLOTANTE -->
+    <a href="https://wa.me/525500000000?text=Hola!%20Me%20gustaría%20saber%20más%20sobre%20las%20clases%20de%20Yoga." target="_blank" class="fixed bottom-6 right-6 bg-[#25d366] text-white w-14 h-14 rounded-full flex items-center justify-center text-2xl shadow-2xl hover:scale-110 transition z-50">
+        <i class="fa-brands fa-whatsapp"></i>
+    </a>
+
+    <!-- VISTA: HOME (HERO SECTION DE CONVERSIÓN) -->
+    <main id="view-home" class="view active fade-in">
+        <section class="relative bg-[#1E2522] h-[550px] flex items-center justify-center overflow-hidden">
+            <div class="absolute inset-0 opacity-40">
+                <img src="https://images.unsplash.com/photo-1545205597-3d9d02c29597?q=80&w=1200" class="w-full h-full object-cover" alt="Yoga Hero">
+            </div>
+            <div class="relative z-10 max-w-4xl mx-auto text-center px-6 text-white">
+                <span class="text-[#D4AF37] uppercase tracking-widest text-sm font-bold mb-3 block">Tu viaje interior comienza aquí</span>
+                <h2 class="text-4xl md:text-6xl font-serif font-bold mb-6 leading-tight">Sana tu cuerpo, calma tu mente, eleva tu espíritu.</h2>
+                <p class="text-lg md:text-xl text-gray-200 font-light max-w-2xl mx-auto mb-10">Clases personalizadas en el corazón de la CDMX diseñadas para despertar tu paz interior y fortalecer tu bienestar integral.</p>
+                <div class="flex flex-col sm:flex-row justify-center gap-4">
+                    <button onclick="showView('classes')" class="bg-[#D4AF37] text-slate-950 px-8 py-4 rounded-full font-bold shadow-xl hover:bg-white transition hover:scale-105">Reservar una Clase</button>
+                    <button onclick="showView('about')" class="border-2 border-white text-white px-8 py-4 rounded-full font-bold hover:bg-white/10 transition">Conócenos</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECCIÓN DE MENSAJES MOTIVADORES EN RECUADROS PREMIUM -->
+        <section class="max-w-7xl mx-auto px-6 py-16 grid md:grid-cols-3 gap-8">
+            <div class="bg-white p-8 rounded-3xl shadow-sm border border-gray-100 text-center">
+                <i class="fa-solid fa-spa text-3xl text-[#4A5D4E] mb-4"></i>
+                <h4 class="font-bold text-lg mb-2">Espacio Sagrado</h4>
+                <p class="text-sm text-gray-500">Un entorno diseñado minuciosamente para desconectar del ruido urbano y reconectar contigo.</p>
+            </div>
+            <div class="bg-white p-8 rounded-3xl shadow-sm border border-gray-100 text-center">
+                <i class="fa-solid fa-heart text-3xl text-[#D4AF37] mb-4"></i>
+                <h4 class="font-bold text-lg mb-2">Bienestar Integral</h4>
+                <p class="text-sm text-gray-500">Nuestras instructoras certificadas guiarán tu cuerpo respetando tus ritmos y límites.</p>
+            </div>
+            <div class="bg-white p-8 rounded-3xl shadow-sm border border-gray-100 text-center">
+                <i class="fa-solid fa-feather text-3xl text-[#4A5D4E] mb-4"></i>
+                <h4 class="font-bold text-lg mb-2">Mentalidad Libre</h4>
+                <p class="text-sm text-gray-500">Aprende técnicas de respiración y meditación aplicables para reducir el estrés diario.</p>
+            </div>
+        </section>
+    </main>
+
+    <!-- VISTA: LOGIN / REGISTRO -->
+    <main id="view-login" class="view fade-in">
+        <div class="max-w-md mx-auto py-20 px-6">
+            <div class="bg-white p-8 md:p-10 rounded-3xl shadow-xl border border-gray-100">
+                <h3 class="text-2xl font-serif font-bold text-center text-[#4A5D4E] mb-2">Comienza tu Práctica</h3>
+                <p class="text-center text-xs text-gray-400 mb-8">Inicia sesión o regístrate para agendar y pagar tus clases de forma segura.</p>
+                
+                <div class="space-y-4">
+                    <div>
+                        <label class="text-xs font-bold text-gray-500 uppercase tracking-wider block mb-1">Nombre Completo</label>
+                        <input type="text" id="auth-name" placeholder="Ej. Alejandra López" class="w-full p-3.5 bg-gray-50 border border-gray-200 rounded-xl outline-none focus:border-[#4A5D4E] text-sm">
+                    </div>
+                    <div>
+                        <label class="text-xs font-bold text-gray-500 uppercase tracking-wider block mb-1">Correo Electrónico</label>
+                        <input type="email" id="auth-email" placeholder="correo@ejemplo.com" class="w-full p-3.5 bg-gray-50 border border-gray-200 rounded-xl outline-none focus:border-[#4A5D4E] text-sm">
+                        <span class="text-[10px] text-gray-400 mt-1 block">Usa <strong>admin@yoga.com</strong> para acceder como Administradora.</span>
+                    </div>
+                    <div>
+                        <label class="text-xs font-bold text-gray-500 uppercase tracking-wider block mb-1">Contraseña</label>
+                        <input type="password" id="auth-pass" placeholder="••••••••" class="w-full p-3.5 bg-gray-50 border border-gray-200 rounded-xl outline-none focus:border-[#4A5D4E] text-sm">
+                    </div>
+                    <button onclick="handleAuth()" class="w-full bg-[#4A5D4E] text-white py-4 rounded-xl font-bold tracking-wide mt-4 shadow-md hover:bg-[#3d4d41] transition">INGRESAR AL ESTUDIO</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- VISTA: VER NUESTRAS CLASES Y AGENDAR -->
+    <main id="view-classes" class="view fade-in">
+        <div class="max-w-7xl mx-auto px-6 py-12">
+            <div class="text-center max-w-2xl mx-auto mb-12">
+                <span class="text-[#D4AF37] font-bold text-xs uppercase tracking-widest block mb-2">Flexibilidad y Enfoque</span>
+                <h3 class="text-3xl md:text-4xl font-serif font-bold text-[#4A5D4E] mb-4">Nuestras Sesiones Disponibles</h3>
+                <p class="text-sm text-gray-500">Explora nuestras disciplinas diseñadas para todos los niveles, desde principiantes buscando paz hasta avanzados refinando su fuerza espiritual.</p>
+            </div>
+
+            <!-- INTRODUCCIÓN Y REPRODUCTOR DE VIDEO INCORPORADO -->
+            <div class="bg-white p-6 md:p-8 rounded-3xl shadow-sm border border-gray-100 grid md:grid-cols-2 gap-8 items-center mb-16">
+                <div>
+                    <h4 class="text-2xl font-serif font-bold text-[#4A5D4E] mb-4">¿Cómo es una sesión en Anahata?</h4>
+                    <p class="text-sm text-gray-600 leading-relaxed mb-4">Cada una de nuestras sesiones fluye a través de secuencias de <i>asanas</i> armónicas sincronizadas con respiración consciente, cerrando con una meditación guiada con cuencos de cuarzo.</p>
+                    <p class="text-sm text-gray-600 leading-relaxed mb-4 font-medium text-[#4A5D4E]">Echa un vistazo a la energía de nuestra comunidad en el video de la derecha.</p>
+                    <div class="p-4 bg-[#F4F6F4] rounded-2xl border-l-4 border-[#D4AF37] text-xs italic text-gray-600">
+                        "La clase me devolvió la paz y vitalidad que el ritmo de la ciudad me quitaba a diario." — Sofía R., Alumna.
+                    </div>
+                </div>
+                <!-- VIDEO DE YOGA INTEGRADO (USANDO UN VIDEO DE MUESTRA PROFESIONAL EN MP4) -->
+                <div class="rounded-2xl overflow-hidden shadow-lg border border-gray-200 bg-black aspect-video">
+                    <video class="w-full h-full object-cover" controls poster="https://images.unsplash.com/photo-1506126613408-eca07ce68773?q=80&w=600">
+                        <source src="https://assets.mixkit.co/videos/preview/mixkit-woman-doing-yoga-stretches-on-mat-41584-large.mp4" type="video/mp4">
+                        Tu navegador no soporta videos integrados.
+                    </video>
+                </div>
+            </div>
+
+            <!-- GRILLA DE HORARIOS Y RESERVACIÓN -->
+            <h4 class="text-xl font-serif font-bold text-[#4A5D4E] mb-6"><i class="fa-regular fa-calendar-check mr-2"></i>Selecciona tu clase y agenda tu espacio:</h4>
+            <div id="classes-grid" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Se inyecta dinámicamente con JavaScript -->
+            </div>
+        </div>
+    </main>
+
+    <!-- VISTA: PASARELA DE PAGO -->
+    <main id="view-payment" class="view fade-in">
+        <div class="max-w-4xl mx-auto py-12 px-6 grid md:grid-cols-5 gap-8">
+            <div class="md:col-span-3 bg-white p-8 rounded-3xl shadow-md border border-gray-100">
+                <h3 class="text-xl font-serif font-bold text-[#4A5D4E] mb-6"><i class="fa-solid fa-credit-card text-[#D4AF37] mr-2"></i>Pago Seguro con Tarjeta</h3>
+                <div class="space-y-4">
+                    <div>
+                        <label class="text-xs font-bold text-gray-500 block mb-1">Nombre del Tarjetahabiente</label>
+                        <input type="text" id="card-name" placeholder="Como aparece en la tarjeta" class="w-full p-3 bg-gray-50 border border-gray-200 rounded-xl outline-none text-sm focus:border-[#4A5D4E]">
+                    </div>
+                    <div>
+                        <label class="text-xs font-bold text-gray-500 block mb-1">Número de Tarjeta</label>
+                        <div class="relative">
+                            <input type="text" id="card-number" maxlength="16" placeholder="4152 •••• •••• ••••" class="w-full p-3 bg-gray-50 border border-gray-200 rounded-xl outline-none text-sm focus:border-[#4A5D4E] pl-10">
+                            <i class="fa-solid fa-credit-card absolute left-3 top-3.5 text-gray-400"></i>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label class="text-xs font-bold text-gray-500 block mb-1">Expiración (MM/AA)</label>
+                            <input type="text" maxlength="5" placeholder="12/29" class="w-full p-3 bg-gray-50 border border-gray-200 rounded-xl outline-none text-sm focus:border-[#4A5D4E] text-center">
+                        </div>
+                        <div>
+                            <label class="text-xs font-bold text-gray-500 block mb-1">CVV</label>
+                            <input type="password" maxlength="3" placeholder="•••" class="w-full p-3 bg-gray-50 border border-gray-200 rounded-xl outline-none text-sm focus:border-[#4A5D4E] text-center">
+                        </div>
+                    </div>
+                    <button onclick="processPayment()" class="w-full bg-[#4A5D4E] text-white py-4 rounded-xl font-bold shadow-md hover:bg-[#3d4d41] transition tracking-wider mt-4">CONFIRMAR RESERVA Y PAGO</button>
+                </div>
+            </div>
+
+            <div class="md:col-span-2 bg-gradient-to-br from-[#4A5D4E] to-[#2E3B32] p-6 rounded-3xl text-white flex flex-col justify-between shadow-lg">
+                <div>
+                    <h4 class="font-serif text-lg font-bold text-[#D4AF37] mb-4">Resumen de Reserva</h4>
+                    <div class="space-y-3 text-sm border-b border-white/10 pb-4 mb-4">
+                        <p class="font-light">Clase: <span id="summary-class" class="font-bold block text-white text-base"></span></p>
+                        <p class="font-light">Horario: <span id="summary-time" class="font-bold block text-white"></span></p>
+                    </div>
+                    <div class="flex justify-between items-end">
+                        <span class="text-xs uppercase font-bold text-gray-300">Total a pagar:</span>
+                        <span id="summary-price" class="text-3xl font-bold text-[#D4AF37]"></span>
+                    </div>
+                </div>
+                <div class="text-[11px] text-gray-300 mt-8 italic border-t border-white/10 pt-4">
+                    <i class="fa-solid fa-lock mr-1"></i> Tus datos bancarios están cifrados bajo la normativa SSL estándar.
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- VISTA: ACERCA DE NOSOTROS (CARRUSEL INCLUIDO) -->
+    <main id="view-about" class="view fade-in">
+        <div class="max-w-7xl mx-auto px-6 py-12">
+            <!-- MENSAJE MOTIVADOR DESTACADO -->
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <i class="fa-solid fa-quote-left text-4xl text-[#D4AF37] mb-4 block"></i>
+                <h2 class="text-3xl md:text-5xl font-serif italic text-[#4A5D4E] leading-snug mb-6">"El yoga no es sobre tocar tus pies, es sobre lo que aprendes en el camino hacia abajo."</h2>
+                <p class="text-gray-500 font-light text-base md:text-lg">Fundamos Anahata Studio con la convicción de crear una comunidad inclusiva donde la salud física y la paz mental caminen de la mano, brindando un oasis real dentro del ritmo acelerado de la Ciudad de México.</p>
+            </div>
+
+            <!-- CARRUSEL DE IMÁGENES PROFESIONAL -->
+            <div class="relative max-w-5xl mx-auto overflow-hidden rounded-3xl shadow-2xl h-[450px] bg-slate-900">
+                <div id="carousel-track" class="flex h-full w-full">
+                    <div class="min-w-full h-full relative">
+                        <img src="https://images.unsplash.com/photo-1575052814086-f385e2e2ad1b?q=80&w=1200" class="w-full h-full object-cover opacity-80" alt="Estudio">
+                        <div class="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/80 p-8 text-white">
+                            <h4 class="text-xl font-bold">Nuestras Instalaciones Iluminadas</h4>
+                            <p class="text-sm text-gray-300">Espacios ventilados con luz natural idóneos para la meditación.</p>
+                        </div>
+                    </div>
+                    <div class="min-w-full h-full relative">
+                        <img src="https://images.unsplash.com/photo-1518611012118-696072aa579a?q=80&w=1200" class="w-full h-full object-cover opacity-80" alt="Práctica">
+                        <div class="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/80 p-8 text-white">
+                            <h4 class="text-xl font-bold">Alineación Consciente</h4>
+                            <p class="text-sm text-gray-300">Atención personalizada para corregir posturas de forma segura.</p>
+                        </div>
+                    </div>
+                    <div class="min-w-full h-full relative">
+                        <img src="https://images.unsplash.com/photo-1599447421416-3414500d18a5?q=80&w=1200" class="w-full h-full object-cover opacity-80" alt="Comunidad">
+                        <div class="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/80 p-8 text-white">
+                            <h4 class="text-xl font-bold">Comunidad de Sanación</h4>
+                            <p class="text-sm text-gray-300">Eventos de meditación colectiva y talleres de fin de semana.</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Controles -->
+                <button onclick="moveCarousel(-1)" class="absolute left-4 top-1/2 -translate-y-1/2 bg-white/30 backdrop-blur-md hover:bg-white/60 p-4 rounded-full text-slate-900 font-bold transition">❮</button>
+                <button onclick="moveCarousel(1)" class="absolute right-4 top-1/2 -translate-y-1/2 bg-white/30 backdrop-blur-md hover:bg-white/60 p-4 rounded-full text-slate-900 font-bold transition">❯</button>
+            </div>
+        </div>
+    </main>
+
+    <!-- VISTA: CONTACTANOS (CON ENLACE WHATSAPP Y MAPA EN CHAPULTEPEC CDMX) -->
+    <main id="view-contact" class="view fade-in">
+        <div class="max-w-7xl mx-auto px-6 py-12 grid md:grid-cols-2 gap-12">
+            <div class="bg-white p-8 md:p-10 rounded-3xl shadow-sm border border-gray-100 flex flex-col justify-between">
+                <div>
+                    <span class="text-[#D4AF37] font-bold text-xs uppercase tracking-widest block mb-2">Ubicación y Canales</span>
+                    <h3 class="text-3xl font-serif font-bold text-[#4A5D4E] mb-6">Visita Nuestro Santuario</h3>
+                    <p class="text-gray-600 text-sm mb-8 leading-relaxed">Nos encontramos ubicados en una de las zonas más verdes y pacíficas de la Ciudad de México, facilitando un entorno armónico inmediato antes de entrar a tu tapete de práctica.</p>
+                    
+                    <div class="space-y-6">
+                        <div class="flex items-start gap-4">
+                            <div class="bg-[#F4F6F4] p-3 rounded-xl text-[#4A5D4E]"><i class="fa-solid fa-location-dot text-lg"></i></div>
+                            <div>
+                                <h5 class="font-bold text-sm">Dirección Física</h5>
+                                <p class="text-xs text-gray-500">Av. Constituyentes s/n, Bosque de Chapultepec II Secc, Miguel Hidalgo, 11100 Ciudad de México, CDMX</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-4">
+                            <div class="bg-emerald-50 p-3 rounded-xl text-emerald-600"><i class="fa-brands fa-whatsapp text-lg"></i></div>
+                            <div>
+                                <h5 class="font-bold text-sm">Atención por WhatsApp</h5>
+                                <p class="text-xs text-gray-500 mb-2">Respuestas rápidas sobre inscripciones y eventos.</p>
+                                <a href="https://wa.me/525500000000" target="_blank" class="text-emerald-600 text-xs font-bold underline hover:text-emerald-800">Chatear con una asesora ahora →</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-8 pt-8 border-t border-gray-100 text-xs text-gray-400">
+                    Horario de atención presencial: Lunes a Sábado de 6:30 AM a 8:30 PM.
+                </div>
+            </div>
+
+            <!-- MAPA DE UBICACIÓN REAL DE CHAPULTEPEC CDMX -->
+            <div class="rounded-3xl overflow-hidden shadow-xl border border-gray-200 h-[450px]">
+                <iframe 
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3762.9460592965415!2d-99.19323862423719!3d19.41473138190539!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85d201fe7197022d%3A0x6b3b55a02c918ee9!2sBosque%20de%20Chapultepec!5e0!3m2!1ses-419!2smx!4v1710000000000!5m2!1ses-419!2smx" 
+                    width="100%" 
+                    height="100%" 
+                    style="border:0;" 
+                    allowfullscreen="" 
+                    loading="lazy" 
+                    referrerpolicy="no-referrer-when-downgrade">
+                </iframe>
+            </div>
+        </div>
+    </main>
+
+    <!-- VISTA: DASHBOARD DE ADMINISTRACIÓN EXCLUSIVO -->
+    <main id="view-admin" class="view fade-in">
+        <div class="max-w-6xl mx-auto px-6 py-12">
+            <div class="bg-white p-8 rounded-3xl shadow-lg border-t-8 border-amber-500 mb-8">
+                <div class="flex justify-between items-center mb-6">
+                    <div>
+                        <h2 class="text-2xl font-serif font-bold text-slate-800"><i class="fa-solid fa-chart-line text-amber-500 mr-2"></i>Panel de Control de Alumnas</h2>
+                        <p class="text-xs text-gray-400">Monitoreo en tiempo real de reservaciones y transacciones liquidadas.</p>
+                    </div>
+                    <span class="bg-amber-50 text-amber-700 px-4 py-1.5 rounded-full text-xs font-bold border border-amber-200">Perfil: Emprendedora Pro</span>
+                </div>
+
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left text-sm text-gray-500">
+                        <thead class="text-xs text-slate-700 uppercase bg-gray-50 tracking-wider">
+                            <tr>
+                                <th class="p-4">Alumna</th>
+                                <th class="p-4">Clase Reservada</th>
+                                <th class="p-4">Horario</th>
+                                <th class="p-4">Estado del Cupo</th>
+                                <th class="p-4">Transacción</th>
+                            </tr>
+                        </thead>
+                        <tbody id="admin-table-body" class="divide-y divide-gray-100">
+                            <!-- Datos dinámicos -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-[#1E2522] text-white/70 py-12 border-t border-white/5 mt-20 text-sm">
+        <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-6">
+            <div>
+                <p class="font-bold text-white text-base">Anahata Yoga Studio</p>
+                <p class="text-xs text-gray-400">Transformación y Abundancia Holística © 2026</p>
+            </div>
+            <div class="flex gap-6 text-xs tracking-widest uppercase">
+                <span class="hover:text-white cursor-pointer" onclick="showView('home')">Inicio</span>
+                <span class="hover:text-white cursor-pointer" onclick="showView('classes')">Clases</span>
+                <span class="hover:text-white cursor-pointer" onclick="showView('about')">Nosotros</span>
+            </div>
+        </div>
+    </footer>
+
+    <!-- LÓGICA DEL SISTEMA EN JAVASCRIPT -->
+    <script>
+        // ESTADO DE LA APLICACIÓN
+        let currentUser = null;
+        let selectedClass = null;
+
+        // Base de datos simulada en memoria
+        const classesData = [
+            { id: 101, name: "Vinyasa Flow Dinámico", time: "Lunes y Miércoles 07:00 AM", desc: "Fluidez, fuerza y control absoluto de la respiración.", price: 250, instructor: "Elena M." },
+            { id: 102, name: "Hatha Yoga Restaurativo", time: "Martes y Jueves 06:30 PM", desc: "Posturas sostenidas ideales para liberar rigidez muscular y estrés.", price: 220, instructor: "Mariana G." },
+            { id: 103, name: "Kundalini & Meditación", time: "Viernes 08:00 AM", desc: "Despierta tu energía vital interna mediante mantras y pranayama.", price: 300, instructor: "Yolanda R." }
+        ];
+
+        // Registro maestro de reservaciones que el Admin podrá ver
+        const globalReservations = [
+            { user: "Gabriela Méndez", className: "Vinyasa Flow Dinámico", time: "Lunes 07:00 AM", status: "La integrante ya reservó y pagó su lugar", payment: "Exitoso ($250 MXN)" },
+            { user: "Ximena Ortiz", className: "Kundalini & Meditación", time: "Viernes 08:00 AM", status: "La integrante ya reservó y pagó su lugar", payment: "Exitoso ($300 MXN)" }
+        ];
+
+        // MOTOR DE NAVEGACIÓN ENTRE VISTAS
+        function showView(viewId) {
+            document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+            document.getElementById(`view-${viewId}`).classList.add('active');
+            
+            if (viewId === 'classes') renderClasses();
+            if (viewId === 'admin') renderAdminPanel();
+            
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // CONTROL DEL CARRUSEL (MÓDULO ACERCA DE)
+        let currentSlide = 0;
+        const totalSlides = 3;
+        function moveCarousel(dir) {
+            const track = document.getElementById('carousel-track');
+            currentSlide = (currentSlide + dir + totalSlides) % totalSlides;
+            track.style.transform = `translateX(-${currentSlide * 100}%)`;
+        }
+        // Rotación automática cada 6 segundos
+        setInterval(() => moveCarousel(1), 6000);
+
+        // AUTENTICACIÓN Y ROLES
+        function handleAuth() {
+            const name = document.getElementById('auth-name').value.trim();
+            const email = document.getElementById('auth-email').value.trim();
+            const pass = document.getElementById('auth-pass').value;
+
+            if (!name || !email || !pass) {
+                alert("Por favor completa de forma correcta todos los accesos requeridos.");
+                return;
+            }
+
+            currentUser = { name, email, isAdmin: email.toLowerCase() === 'admin@yoga.com' };
+
+            // Modificaciones en la Interfaz según el Rol obtenido
+            document.getElementById('nav-login-btn').classList.add('hidden');
+            document.getElementById('user-profile').classList.remove('hidden');
+            document.getElementById('user-tag').innerText = `Namasté, ${name.split(' ')[0]}`;
+
+            if (currentUser.isAdmin) {
+                document.getElementById('admin-badge').classList.remove('hidden');
+                showView('admin');
+            } else {
+                showView('classes');
+            }
+        }
+
+        function logout() {
+            currentUser = null;
+            window.location.reload();
+        }
+
+        // INYECCIÓN DE CATÁLOGO DE CLASES
+        function renderClasses() {
+            const grid = document.getElementById('classes-grid');
+            grid.innerHTML = classesData.map(c => `
+                <div class="bg-white rounded-3xl p-6 shadow-sm hover:shadow-xl border border-gray-100 transition duration-300 flex flex-col justify-between">
+                    <div>
+                        <span class="text-xs font-bold text-[#D4AF37] tracking-wider uppercase block mb-1">${c.instructor}</span>
+                        <h5 class="text-xl font-serif font-bold text-[#4A5D4E] mb-2">${c.name}</h5>
+                        <p class="text-xs text-gray-400 mb-4 flex items-center gap-1.5"><i class="fa-regular fa-clock text-[#D4AF37]"></i> ${c.time}</p>
+                        <p class="text-sm text-gray-500 mb-6 leading-relaxed">${c.desc}</p>
+                    </div>
+                    <div class="pt-4 border-t border-gray-50 flex items-center justify-between">
+                        <span class="text-2xl font-bold text-slate-800">$${c.price} <small class="text-xs font-light text-gray-400">MXN / clase</small></span>
+                        <button onclick="bookClass(${c.id})" class="bg-[#4A5D4E] text-white px-5 py-2.5 rounded-xl font-semibold text-xs shadow hover:bg-[#3d4d41] transition">Agendar</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // FLUJO DE RESERVA Y PASARELA DE PAGOS
+        function bookClass(classId) {
+            if (!currentUser) {
+                alert("Para agendar tu lugar en la sesión, por favor inicia sesión o regístrate.");
+                showView('login');
+                return;
+            }
+
+            selectedClass = classesData.find(c => c.id === classId);
+            
+            // Configurar datos en el resumen de cobro
+            document.getElementById('summary-class').innerText = selectedClass.name;
+            document.getElementById('summary-time').innerText = selectedClass.time;
+            document.getElementById('summary-price').innerText = `$${selectedClass.price}.00 MXN`;
+            
+            showView('payment');
+        }
+
+        function processPayment() {
+            const cardName = document.getElementById('card-name').value.trim();
+            const cardNum = document.getElementById('card-number').value.trim();
+
+            if (!cardName || cardNum.length < 16) {
+                alert("Completa de forma correcta los parámetros bancarios requeridos.");
+                return;
+            }
+
+            // Guardar registro para la vista del Administrador
+            globalReservations.push({
+                user: currentUser.name,
+                className: selectedClass.name,
+                time: selectedClass.time,
+                status: "La integrante ya reservó y pagó su lugar",
+                payment: `Exitoso ($${selectedClass.price} MXN)`
+            });
+
+            // Disparar Alerta simulada de WhatsApp exigida por los requerimientos
+            alert(`💬 ALERTA WHATSAPP ENVIADA A TU MÓVIL:\n\n¡Hola ${currentUser.name}! Tu lugar ha sido confirmado en la clase "${selectedClass.name}" para el horario: ${selectedClass.time}. ¡Te esperamos con tu tapete listo en el Bosque de Chapultepec! ✨🧘‍♀️`);
+
+            alert("✨ ¡Tu pago y reservación se procesaron con éxito total!");
+            showView('home');
+        }
+
+        // SECCIÓN EXCLUSIVA DE LA EMPRENDEDORA (ADMINISTRADORA)
+        function renderAdminPanel() {
+            const tbody = document.getElementById('admin-table-body');
+            if (globalReservations.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="5" class="p-8 text-center italic text-gray-300">Ninguna reserva concretada el día de hoy.</td></tr>`;
+                return;
+            }
+
+            tbody.innerHTML = globalReservations.map(r => `
+                <tr class="hover:bg-gray-50/80 transition">
+                    <td class="p-4 font-bold text-slate-800">${r.user}</td>
+                    <td class="p-4 text-slate-600">${r.className}</td>
+                    <td class="p-4 text-xs text-gray-500">${r.time}</td>
+                    <td class="p-4"><span class="bg-emerald-50 text-emerald-700 font-semibold px-3 py-1 rounded-full text-xs border border-emerald-200"><i class="fa-solid fa-circle-check mr-1"></i> ${r.status}</span></td>
+                    <td class="p-4 font-mono text-xs text-slate-500 font-bold">${r.payment}</td>
+                </tr>
+            `).join('');
+        }
+    </script>
+</body>
+</html>
